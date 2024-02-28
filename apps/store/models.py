@@ -24,6 +24,7 @@ class Product(AbstractModel):
     price = models.DecimalField(max_digits=7, decimal_places=2)
     price_in_dollar = models.DecimalField(max_digits=10, decimal_places=2)
     end_date = models.DateTimeField()
+    photo = models.FileField(upload_to="products/photo/%Y/%m/%d", default="default/discover-04.jpg")
 
     def __str__(self):
         return "{0} by {1}".format(self.name, self.owner)
