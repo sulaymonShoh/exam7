@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+    <style>
+    h1, h2, label, p, input{
+        color: #000 !important;
+    }
+    </style>
+
+    <div class="container my-5 py-5">
+    <h2  style="color: #000;" class="mt-5">Register</h2>
+    <p  style="color: #000;">Already have an account. <a href="{% url 'accounts:login' %}">Login</a></p>
+    <hr>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Save" class="btn btn-outline-primary">
+        </form>
+    </div>
+{% endblock %}

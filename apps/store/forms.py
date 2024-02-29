@@ -3,7 +3,7 @@ from django import forms
 from apps.store.models import Product
 
 
-class ProductCreateForm(forms.ModelForm):
+class ProductForm(forms.ModelForm):
     photo = forms.FileField()
 
     class Meta:

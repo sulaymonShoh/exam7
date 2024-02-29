@@ -16,7 +16,7 @@ class RegisterView(View):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])
             user.save()
-            return redirect("home")
+            return redirect("store:home")
         else:
             return render(request, 'accounts/register.html', {"form": form})
 

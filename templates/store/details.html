@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block body %}
-    
+
     <div class="page-heading normal-space">
         <div class="container">
             <div class="row">
@@ -14,7 +14,7 @@
                             <a href="{% url 'store:explore' %}">Explore Our Items</a>
                         </div>
                         <div class="border-button">
-                            <a href="create.html">Create Your NFT</a>
+                            <a href="{% url 'store:create' %}">Create Your NFT</a>
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,8 @@
                     <h4>{{ product.name }}</h4>
                     <span class="author">
             <img src="{{ product.author.avatar.url }}" alt="" style="max-width: 50px; border-radius: 50%;">
-            <h6>{{ product.author.first_name }}{{ product.author.last_name }}<br><a href="#">@{{ product.author.username }}</a></h6>
+            <h6>{{ product.author.first_name }}{{ product.author.last_name }}<br><a
+                    href="#">@{{ product.author.username }}</a></h6>
           </span>
                     <p>{{ product.description }}</p>
                     <div class="row">
@@ -58,6 +59,9 @@
               <span class="ends">
                 Ends In<br><strong>{{ product.end_date|date:"d-m-Y" }}</strong><br>
               </span>
+                            {% if request.user == product.author %}
+                                <a href="{% url 'store:product_update' product.id %}" class="btn btn-primary">Update</a>
+                            {% endif %}
                         </div>
                     </div>
                     <form action="submit">
@@ -82,7 +86,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="main-button">
-                        <a href="create.html">Create Your NFT Now</a>
+                        <a href="{% url 'store:create' %}">Create Your NFT Now</a>
                     </div>
                 </div>
                 <div class="col-lg-4">

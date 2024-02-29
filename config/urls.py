@@ -22,7 +22,7 @@ from config.settings import STATIC_ROOT, STATIC_URL, MEDIA_URL, MEDIA_ROOT
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.store.urls')),
-    path('accounts', include('apps.accounts.urls')),
+    path('accounts/', include('apps.accounts.urls')),
 ]
 
 urlpatterns += static(STATIC_URL, document_root=STATIC_ROOT)

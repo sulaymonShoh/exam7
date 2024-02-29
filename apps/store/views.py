@@ -2,9 +2,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, DetailView, CreateView
+from django.views.generic import TemplateView, DetailView, CreateView, UpdateView
 
 from apps.accounts.models import User
+from apps.store.forms import ProductForm
 from apps.store.models import Product, Category
 
 
@@ -23,8 +24,8 @@ class ExploreView(View):
 
 
 class AuthorDetailView(LoginRequiredMixin, View):
-    def get(self, request):
-        user = User.objects.get(id=request.user.id)
+    def get(self, request, username):
+        user = User.objects.get(username=username)
         products = Product.objects.filter(author=user)
         return render(request, 'store/author.html', context={"author": user, "products": products})
 
@@ -37,8 +38,17 @@ class ProductDetailView(View):
 
 class ProductCreateView(CreateView):
     template_name = 'store/create.html'
+    form_class = ProductForm
     model = Product
-    fields = ('name', 'description', 'author', 'category', 'owner_full_name', 'owner_username', 'end_date', 'price',
-              'price_in_dollar', 'photo')
+    # fields = ('name', 'description', 'author', 'category', 'owner_full_name', 'owner_username', 'end_date', 'price',
+              # 'price_in_dollar', 'photo')
     success_url = reverse_lazy("store:home")
 
+
+class ProductUpdateView(UpdateView):
+    template_name = 'store/create.html'
+    form_class = ProductForm
+    model = Product
+    # fields = ('name', 'description', 'author', 'category', 'owner_full_name', 'owner_username', 'end_date', 'price',
+              # 'price_in_dollar', 'photo')
+    success_url = reverse_lazy("store:home")
